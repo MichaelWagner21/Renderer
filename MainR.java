@@ -45,7 +45,6 @@ public class MainR {
         thisPanel.setPixel(50, 50, Color.RED);
 
 	CameraR camera1 = new CameraR();
-	CameraR camera2 = new CameraR(-10, 5, -50);
 	
         
 

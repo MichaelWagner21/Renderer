@@ -19,6 +19,7 @@ public class PanelR extends JPanel {
         fillCanvas(Color.BLACK);
         
     }
+ 
 
     public Dimension getPreferredSize() {
         return new Dimension(canvas.getWidth(), canvas.getHeight());
