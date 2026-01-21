@@ -43,9 +43,9 @@ public class MainR {
 
         CameraR camera1 = new CameraR();
         EnvironmentR myEnv = new EnvironmentR(1, 1, 1);
-        myEnv.setColor(Color.RED,0,0,0);
-        System.out.print(myEnv);
-        
+        myEnv.setColor(Color.RED,-1,-1,0);
+        //System.out.println(myEnv);
+        //System.out.print(myEnv.getColor(0,0,0));
 
     }
 

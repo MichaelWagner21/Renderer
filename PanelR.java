@@ -9,20 +9,20 @@ public class PanelR extends JPanel {
 
     private BufferedImage canvas;
 
-    //private int width;
-    //private int height;
+    private int width;
+    private int height;
 
     public PanelR(int w, int h) {
         canvas = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
-        //width = w;
-        //height = h;
+        width = canvas.getWidth();
+        height = canvas.getHeight();
         fillCanvas(Color.BLACK);
         
     }
  
 
     public Dimension getPreferredSize() {
-        return new Dimension(canvas.getWidth(), canvas.getHeight());
+        return new Dimension(width, height);
     }
 
     public void paintComponent(Graphics g) {
@@ -34,8 +34,8 @@ public class PanelR extends JPanel {
 
     public void fillCanvas(Color c) {
         int color = c.getRGB();
-        for (int x = 0; x < canvas.getWidth(); x++) {
-            for (int y = 0; y < canvas.getHeight(); y++) {
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
                 canvas.setRGB(x, y, color);
             }
         }
@@ -112,10 +112,14 @@ public class PanelR extends JPanel {
 
 
     public void setPixel(int x, int yIn, Color c){
-        int y = MainR.YBOUND-yIn;
-        if ((x>0&y>0)&(x<MainR.XBOUND&y<MainR.YBOUND)){
+        int y = height-yIn;
+        if ((x>0&y>0)&(x<width&y<height)){
             canvas.setRGB(x,y,c.getRGB());
         }
+    }
+
+    public void render(Color[][] projection, int width, int height){
+        //TODO: Make this work
     }
 
 

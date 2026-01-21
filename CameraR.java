@@ -1,8 +1,13 @@
+import java.awt.Color;
+
+
 public class CameraR extends PhysicalObjectR{
 
 	
 	private double fovHori;
 	private double fovVer;
+
+	public Color[][] projection;
 
 
 	public CameraR(){
@@ -16,6 +21,8 @@ public class CameraR extends PhysicalObjectR{
 	
 		this.fovHori = 200;	
 		this.fovVer = 135;
+
+	
 	} 
 
 	public CameraR(int xIn, int yIn, int zIn, double xAngIn, double yAngIn, double zAngIn, double fovHoriIn, double fovVerIn){
@@ -47,6 +54,10 @@ public class CameraR extends PhysicalObjectR{
 					  "\n fovHori: "+String.valueOf(this.fovHori) +
 					  "\n fovVer: "+ String.valueOf(this.fovVer) +
 					  "\n";
+	}
+
+	public void camUpdate(){
+		
 	}
 
 
