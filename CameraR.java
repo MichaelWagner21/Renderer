@@ -1,28 +1,21 @@
-public class CameraR{
+public class CameraR extends PhysicalObjectR{
 
-	private int x;
-	private int y;
-	private int z;
 	
-	private double xAng;
-	private double yAng;
-	private double zAng;
-
 	private double fovHori;
 	private double fovVer;
 
 
 	public CameraR(){
-		x = 0;
-		y = 0;
+		this.x = 0;
+		this.y = 0;
 		z = 0;
 
-		xAng = 0;
-		yAng = 0;
-		zAng = 0;
+		this.xAng = 0;
+		this.yAng = 0;
+		this.zAng = 0;
 	
-		fovHori = 200;	
-		fovVer = 135;
+		this.fovHori = 200;	
+		this.fovVer = 135;
 	} 
 
 	public CameraR(int xIn, int yIn, int zIn, double xAngIn, double yAngIn, double zAngIn, double fovHoriIn, double fovVerIn){
@@ -36,24 +29,7 @@ public class CameraR{
 		this.fovVer = fovVerIn;
 	}
 
-	public int getX(){
-		return x;
-	}
-	public int getY(){
-		return y;
-	}
-	public int getZ(){
-		return z;
-	}
-	public double getXAng(){
-		return xAng;
-	}
-	public double getYAng(){
-		return yAng;
-	}
-	public double getZAng(){
-		return zAng;
-	}
+	
 	public double getFovHori(){
 		return fovHori;
 	}
@@ -61,7 +37,17 @@ public class CameraR{
 		return fovVer;
 	}
 	
-
+	public String toString(){
+		return "DEBUG: \n x: "+ String.valueOf(this.x) +
+					  "\n y: "+ String.valueOf(this.y) +
+					  "\n z: "+ String.valueOf(this.z) +
+					  "\n xAng: " + String.valueOf(this.xAng) +
+					  "\n yAng: " + String.valueOf(this.yAng) +
+					  "\n zAng: " + String.valueOf(this.zAng) +
+					  "\n fovHori: "+String.valueOf(this.fovHori) +
+					  "\n fovVer: "+ String.valueOf(this.fovVer) +
+					  "\n";
+	}
 
 
 }

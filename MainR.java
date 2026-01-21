@@ -16,7 +16,6 @@ public class MainR {
     final static int YBOUND = 750;
     
     
-    final static int TIME = 10;
 
     public static PanelR thisPanel = new PanelR(XBOUND, YBOUND);
 
@@ -37,14 +36,15 @@ public class MainR {
         appFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         
-
-        
+    
         thisPanel.fillCanvas(Color.BLACK);
-       
         thisPanel.setPixel(50, 50, Color.RED);
+        thisPanel.drawCircle(Color.WHITE, 350, 350, 100);
 
-	CameraR camera1 = new CameraR();
-	
+        CameraR camera1 = new CameraR();
+        EnvironmentR myEnv = new EnvironmentR(1, 1, 1);
+        myEnv.setColor(Color.RED,0,0,0);
+        System.out.print(myEnv);
         
 
     }
