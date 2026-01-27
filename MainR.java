@@ -39,12 +39,12 @@ public class MainR {
     
         thisPanel.fillCanvas(Color.BLACK);
         thisPanel.setPixel(50, 50, Color.RED);
-        thisPanel.drawCircle(Color.WHITE, 350, 350, 100);
+        thisPanel.drawLine(Color.WHITE, 40, 50, 100,200);
 
-        CameraR camera1 = new CameraR();
-        EnvironmentR myEnv = new EnvironmentR(1, 1, 1);
-        myEnv.setColor(Color.RED,-1,-1,0);
-        //System.out.println(myEnv);
+        CameraR camera1 = new CameraR(XBOUND, YBOUND);
+        EnvironmentR myEnv = new EnvironmentR(2, 2, 2);
+        myEnv.drawSimpleCube(Color.RED, -2,-2,-2,2,2,2);
+        System.out.println(myEnv);
         //System.out.print(myEnv.getColor(0,0,0));
 
     }

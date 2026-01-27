@@ -70,9 +70,7 @@ public class PanelR extends JPanel {
                     setPixel(x,y,c);
                 }
             }
-            
-        
-    
+
 
         repaint();
     }

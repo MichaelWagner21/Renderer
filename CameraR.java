@@ -7,13 +7,16 @@ public class CameraR extends PhysicalObjectR{
 	private double fovHori;
 	private double fovVer;
 
+	private int screenWidth;
+	private int screenHeight;
+
 	public Color[][] projection;
 
 
-	public CameraR(){
+	public CameraR(int screenWidthIn, int screenHeightIn){
 		this.x = 0;
 		this.y = 0;
-		z = 0;
+		this.z = 0;
 
 		this.xAng = 0;
 		this.yAng = 0;
@@ -21,11 +24,17 @@ public class CameraR extends PhysicalObjectR{
 	
 		this.fovHori = 200;	
 		this.fovVer = 135;
+		
+		this.screenWidth = screenWidthIn;
+		this.screenHeight = screenHeightIn;
 
 	
 	} 
 
-	public CameraR(int xIn, int yIn, int zIn, double xAngIn, double yAngIn, double zAngIn, double fovHoriIn, double fovVerIn){
+	public CameraR(int xIn, int yIn, int zIn, 
+				   double xAngIn, double yAngIn, double zAngIn, 
+				   double fovHoriIn, double fovVerIn, 
+				   int screenWidthIn, int screenHeightIn){
 		this.x = xIn;
 		this.y = yIn;
 		this.z = zIn;
@@ -34,6 +43,8 @@ public class CameraR extends PhysicalObjectR{
 		this.zAng = zAngIn;
 		this.fovHori = fovHoriIn;
 		this.fovVer = fovVerIn;
+		this.screenWidth = screenWidthIn;
+		this.screenHeight = screenHeightIn;
 	}
 
 	
@@ -53,11 +64,15 @@ public class CameraR extends PhysicalObjectR{
 					  "\n zAng: " + String.valueOf(this.zAng) +
 					  "\n fovHori: "+String.valueOf(this.fovHori) +
 					  "\n fovVer: "+ String.valueOf(this.fovVer) +
-					  "\n";
+					  "\n screenWidth: "+String.valueOf(this.screenWidth) +
+					  "\n screenHeight: "+String.valueOf(this.screenHeight);
 	}
 
 	public void camUpdate(){
-		
+		//TODO: This
+	}
+	public void updateProjection(){
+
 	}
 
 
