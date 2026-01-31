@@ -134,6 +134,9 @@ public class EnvironmentR {
         
 
     }
+    public void drawPlane(Color c, int x1, int y1, int z1, int x2, int y2, int z2, int x3, int y3, int z3, int x4, int y4, int z4){
+ 
+    }
     public void clear(){
         for (int x = 0; x < envColors.length; x++){
             for (int y = 0; y < envColors[x].length; y++){

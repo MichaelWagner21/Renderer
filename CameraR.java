@@ -30,8 +30,8 @@ public class CameraR extends PhysicalObjectR{
 		this.yAng = 0;
 		this.zAng = 0;
 
-		this.fovHori = Math.toRadians(200.0);
-		this.fovVer = Math.toRadians(135);
+		this.fovHori = 3.49066; // 200 Degrees in Radians
+		this.fovVer = 2.35619; // 135 Degrees in Radians
 	
 		//Already in radians
 		this.halfFovHori = fovHori / 2.0;	
@@ -56,13 +56,13 @@ public class CameraR extends PhysicalObjectR{
 		this.x = xIn;
 		this.y = yIn;
 		this.z = zIn;
-		this.xAng = Math.toRadians(xAngIn);
-		this.yAng = Math.toRadians(yAngIn);
-		this.zAng = Math.toRadians(zAngIn);
-		this.fovHori = Math.toRadians(fovHoriIn);
-		this.fovVer = Math.toRadians(fovVerIn);
-		this.halfFovHori = Math.toRadians((fovHoriIn/2));
-		this.halfFovVer = Math.toRadians((fovVerIn/2));
+		this.xAng = (xAngIn);
+		this.yAng = (yAngIn);
+		this.zAng = (zAngIn);
+		this.fovHori = (fovHoriIn);
+		this.fovVer = (fovVerIn);
+		this.halfFovHori = ((fovHoriIn/2));
+		this.halfFovVer = ((fovVerIn/2));
 		this.screenWidth = screenWidthIn;
 		this.screenHeight = screenHeightIn;
 		this.projection = new Color[screenWidthIn][screenHeightIn];
@@ -251,11 +251,13 @@ public class CameraR extends PhysicalObjectR{
 
 
 	public double[] endpointFinder(int x, int y, int z, double xAng, double yAng, double zAng, double length){
-    // xAng = roll (unused here), yAng = pitch (elevation), zAng = yaw (azimuth)
-    // Use pitch/yaw -> direction:
-    // dx = cos(pitch) * sin(yaw)
-    // dy = sin(pitch)
-    // dz = cos(pitch) * cos(yaw)
+    //Roll: x-axis
+	//Pitch: y-axis
+	//Yaw: z-axis
+
+	//fovHori: Yaw, z-axis, screenX, zOffset
+	//fovVer: Pitch, y-axis, screenY, yOffset
+	
     double dx = Math.cos(yAng) * Math.sin(zAng);
     double dy = Math.sin(yAng);
     double dz = Math.cos(yAng) * Math.cos(zAng);

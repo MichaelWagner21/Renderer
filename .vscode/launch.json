@@ -9,6 +9,13 @@
             "name": "MainR",
             "request": "launch",
             "mainClass": "MainR",
+            "projectName": "Renderer_9a56b15b"
+        },
+        {
+            "type": "java",
+            "name": "MainR",
+            "request": "launch",
+            "mainClass": "MainR",
             "projectName": "Renderer_ba3714c"
         },
         {
