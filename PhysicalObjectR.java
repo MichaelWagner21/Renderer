@@ -3,9 +3,9 @@ public class PhysicalObjectR {
 	int y;
 	int z;
 	
-	double xAng;
-	double yAng;
-	double zAng;
+	double roll;
+	double pitch;
+	double yaw;
     
     public int getX(){
 		return x;
@@ -15,14 +15,5 @@ public class PhysicalObjectR {
 	}
 	public int getZ(){
 		return z;
-	}
-	public double getXAng(){
-		return xAng;
-	}
-	public double getYAng(){
-		return yAng;
-	}
-	public double getZAng(){
-		return zAng;
 	}
 }

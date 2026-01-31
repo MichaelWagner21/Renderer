@@ -26,9 +26,9 @@ public class CameraR extends PhysicalObjectR{
 		this.y = 0;
 		this.z = 0;
 
-		this.xAng = 0;
-		this.yAng = 0;
-		this.zAng = 0;
+		this.roll = 0;
+		this.pitch = 0;
+		this.yaw = 0;
 
 		this.fovHori = 3.49066; // 200 Degrees in Radians
 		this.fovVer = 2.35619; // 135 Degrees in Radians
@@ -56,9 +56,9 @@ public class CameraR extends PhysicalObjectR{
 		this.x = xIn;
 		this.y = yIn;
 		this.z = zIn;
-		this.xAng = (xAngIn);
-		this.yAng = (yAngIn);
-		this.zAng = (zAngIn);
+		this.roll = (xAngIn);
+		this.pitch = (yAngIn);
+		this.yaw = (zAngIn);
 		this.fovHori = (fovHoriIn);
 		this.fovVer = (fovVerIn);
 		this.halfFovHori = ((fovHoriIn/2));
@@ -80,9 +80,9 @@ public class CameraR extends PhysicalObjectR{
 		return "DEBUG: \n x: "+ String.valueOf(this.x) +
 					  "\n y: "+ String.valueOf(this.y) +
 					  "\n z: "+ String.valueOf(this.z) +
-					  "\n xAng: " + String.valueOf(this.xAng) +
-					  "\n yAng: " + String.valueOf(this.yAng) +
-					  "\n zAng: " + String.valueOf(this.zAng) +
+					  "\n xAng: " + String.valueOf(this.roll) +
+					  "\n yAng: " + String.valueOf(this.pitch) +
+					  "\n zAng: " + String.valueOf(this.yaw) +
 					  "\n fovHori: "+String.valueOf(this.halfFovHori) +
 					  "\n fovVer: "+ String.valueOf(this.halfFovVer) +
 					  "\n screenWidth: "+String.valueOf(this.screenWidth) +
@@ -122,7 +122,7 @@ public class CameraR extends PhysicalObjectR{
 		// +"\nzOffset = "+String.valueOf(zOffset*180/Math.PI)+"\nyOffset = "+String.valueOf(yOffset*180/Math.PI)+"\n\n");
 
 
-		double[] endpoints = endpointFinder(this.x, this.y, this.z, this.xAng, this.yAng+yOffset, this.zAng+zOffset, env.maxEnvLength);
+		double[] endpoints = endpointFinder(this.x, this.y, this.z, this.roll, this.pitch+yOffset, this.yaw+zOffset, env.maxEnvLength);
 
 		double currentPointX = this.x;
 		double currentPointY = this.y;
@@ -252,7 +252,7 @@ public class CameraR extends PhysicalObjectR{
 	
 	
 
-
+	//Written by me, fixed by Copilot
 	public double[] endpointFinder(int x, int y, int z, double xAng, double yAng, double zAng, double length){
     //Roll: x-axis
 	//Pitch: y-axis

@@ -8,6 +8,14 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
 
+import java.awt.KeyEventDispatcher;
+import java.awt.KeyboardFocusManager;
+import java.awt.event.KeyEvent;
+
+
+
+
+
 
 public class MainR {
     
@@ -18,10 +26,62 @@ public class MainR {
     
 
     public static PanelR thisPanel = new PanelR(XBOUND, YBOUND);
+    public static CameraR activeCamera;
+    
+
+
+
+    private static volatile boolean wPressed = false;
+    private static volatile boolean sPressed = false;
+
+    //Following Methods: Copied from stack overflow
+    public static boolean isWPressed() {
+        synchronized (MainR.class) {
+            return wPressed;
+        }
+    }
+    public static boolean isSPressed() {
+        synchronized (MainR.class) {
+            return sPressed;
+        }
+    }
 
 
 
     public static void main(String[] args){
+
+
+        KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new KeyEventDispatcher() {
+
+            @Override
+            public boolean dispatchKeyEvent(KeyEvent ke) {
+                synchronized (MainR.class) {
+                    switch (ke.getID()) {
+                    case KeyEvent.KEY_PRESSED:
+                        if (ke.getKeyCode() == KeyEvent.VK_W) {
+                            wPressed = true;
+                        }
+                        if (ke.getKeyCode() == KeyEvent.VK_S) {
+                            sPressed = true;
+                        }
+                        break;
+
+                    case KeyEvent.KEY_RELEASED:
+                        if (ke.getKeyCode() == KeyEvent.VK_W) {
+                            wPressed = false;
+                        }
+                        if (ke.getKeyCode() == KeyEvent.VK_S) {
+                            sPressed = false;
+                        }
+                        break;
+                    }
+                    return false;
+                }
+            }
+        });
+
+
+
 
         System.out.print("\033[H\033[2J");
 
@@ -39,17 +99,26 @@ public class MainR {
     
         thisPanel.fillCanvas(Color.BLACK);
 
-        CameraR camera1 = new CameraR(XBOUND, YBOUND);
-        EnvironmentR myEnv = new EnvironmentR(30, 30, 30);
+        activeCamera = new CameraR(XBOUND, YBOUND);
+        EnvironmentR myEnv = new EnvironmentR(50, 50, 50);
+
+
+
+
         for (int x = -5; x <= 5; x++){
             myEnv.drawLine(Color.CYAN, x, 5, 15, x, -5, 15);
         }
         //System.out.print(myEnv);
 
-        for (int i = 0; i < 30; i++){
-            camera1.x -= 1;
-            camera1.updateProjection(myEnv);
-            thisPanel.render(camera1.projection, XBOUND, YBOUND);
+        while (true){
+            if (MainR.isWPressed()){
+                activeCamera.z += 1;
+            }
+            else if (MainR.isSPressed()){
+                activeCamera.z -= 1;
+            }
+            activeCamera.updateProjection(myEnv);
+            thisPanel.render(activeCamera.projection, XBOUND, YBOUND);
         }
         // camera1.updateProjection(myEnv);
         // thisPanel.render(camera1.projection, XBOUND, YBOUND);
