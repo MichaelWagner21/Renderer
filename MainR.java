@@ -34,6 +34,9 @@ public class MainR {
     private static volatile boolean wPressed = false;
     private static volatile boolean sPressed = false;
 
+    private static volatile boolean aPressed = false;
+    private static volatile boolean dPressed = false;
+
     //Following Methods: Copied from stack overflow
     public static boolean isWPressed() {
         synchronized (MainR.class) {
@@ -43,6 +46,16 @@ public class MainR {
     public static boolean isSPressed() {
         synchronized (MainR.class) {
             return sPressed;
+        }
+    }
+    public static boolean isAPressed() {
+        synchronized (MainR.class) {
+            return aPressed;
+        }
+    }
+    public static boolean isDPressed() {
+        synchronized (MainR.class) {
+            return dPressed;
         }
     }
 
@@ -64,6 +77,12 @@ public class MainR {
                         if (ke.getKeyCode() == KeyEvent.VK_S) {
                             sPressed = true;
                         }
+                        if (ke.getKeyCode() == KeyEvent.VK_A) {
+                            aPressed = true;
+                        }
+                        if (ke.getKeyCode() == KeyEvent.VK_D) {
+                            dPressed = true;
+                        }
                         break;
 
                     case KeyEvent.KEY_RELEASED:
@@ -72,6 +91,12 @@ public class MainR {
                         }
                         if (ke.getKeyCode() == KeyEvent.VK_S) {
                             sPressed = false;
+                        }
+                        if (ke.getKeyCode() == KeyEvent.VK_A) {
+                            aPressed = false;
+                        }
+                        if (ke.getKeyCode() == KeyEvent.VK_D) {
+                            dPressed = false;
                         }
                         break;
                     }
@@ -110,12 +135,21 @@ public class MainR {
         }
         //System.out.print(myEnv);
 
+
+        //Main Loop
         while (true){
             if (MainR.isWPressed()){
                 activeCamera.z += 1;
             }
             else if (MainR.isSPressed()){
                 activeCamera.z -= 1;
+            }
+
+            if (MainR.isAPressed()){
+                activeCamera.x -= 1;
+            }
+            else if (MainR.isDPressed()){
+                activeCamera.x += 1;
             }
             activeCamera.updateProjection(myEnv);
             thisPanel.render(activeCamera.projection, XBOUND, YBOUND);
