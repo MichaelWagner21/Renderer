@@ -117,7 +117,12 @@ public class PanelR extends JPanel {
     }
 
     public void render(Color[][] projection, int width, int height){
-        //TODO: Make this work
+        for (int screenX = 0; screenX < width; screenX++){
+            for (int screenY = 0; screenY < height; screenY++){
+                this.setPixel(screenX, screenY, projection[screenX][screenY]);
+            }
+        }
+        repaint();
     }
 
 

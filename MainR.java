@@ -38,15 +38,14 @@ public class MainR {
         
     
         thisPanel.fillCanvas(Color.BLACK);
-        thisPanel.setPixel(50, 50, Color.RED);
-        thisPanel.drawLine(Color.WHITE, 40, 50, 100,200);
 
         CameraR camera1 = new CameraR(XBOUND, YBOUND);
-        EnvironmentR myEnv = new EnvironmentR(2, 2, 2);
-        myEnv.drawSimpleCube(Color.RED, -2,-2,-2,2,2,2);
-        System.out.println(myEnv);
-        //System.out.print(myEnv.getColor(0,0,0));
+        EnvironmentR myEnv = new EnvironmentR(10, 10, 10);
+        //myEnv.drawTetrahedron(Color.cyan, 0, 0, 3, -2, 2, 5, 2, 2, 5, 0, -2, 5);
+        myEnv.drawLine(Color.CYAN, -5, 0, 4, 5, 5, 4);
 
+        camera1.updateProjection(myEnv);
+        thisPanel.render(camera1.projection, XBOUND, YBOUND);
     }
 
 

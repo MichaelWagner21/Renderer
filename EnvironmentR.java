@@ -11,6 +11,8 @@ public class EnvironmentR {
     int yMax;
     int zMax;
 
+    double maxEnvLength;
+
 
     public EnvironmentR(int xMaxIn, int yMaxIn, int zMaxIn){
         //one index is added for 0
@@ -18,6 +20,9 @@ public class EnvironmentR {
         this.xMax = xMaxIn;
         this.yMax = yMaxIn;
         this.zMax = zMaxIn;
+
+        //Max Environment Length from corner to corner
+        this.maxEnvLength = Math.sqrt(4*xMax*xMax+4*yMax*yMax+4*zMax*zMax);
     }
     public void setColor(Color c, int x, int y, int z){
         envColors[x+xMax][y+yMax][z+zMax] = c;
@@ -117,20 +122,27 @@ public class EnvironmentR {
 
 
     }
-    public void drawSimpleCube(Color c, int x1, int y1, int z1, int x2, int y2, int z2){
-        this.drawLine(c, x1, y1, z1, x2, y1, z1);
-        this.drawLine(c, x1, y1, z1, x1, y2, z1);
-        this.drawLine(c, x1, y1, z1, x1, y1, z2);
+    public void drawTetrahedron(Color c, int x1, int y1, int z1, int x2, int y2, int z2, int x3, int y3, int z3, int x4, int y4, int z4){
+        this.drawLine(c, x1, y1, z1, x2, y2, z2);
+        this.drawLine(c, x1, y1, z1, x3, y3, z3);
+        this.drawLine(c, x1, y1, z1, x4, y4, z4);
 
-        this.drawLine(c, x2, y2, z2, x1, y2, z2);
-        this.drawLine(c, x2, y2, z2, x2, y1, z2);
-        this.drawLine(c, x2, y2, z2, x2, y2, z1);
-        //TODO: This is bad
+        this.drawLine(c, x2, y2, z2, x3, y3, z3);
+        this.drawLine(c, x2, y2, z2, x4, y4, z4);
+
+        this.drawLine(c, x3, y3, z3, x4, y4, z4);
+        
         
 
     }
     public void clear(){
-        //TODO: This
+        for (int x = 0; x < envColors.length; x++){
+            for (int y = 0; y < envColors[x].length; y++){
+                for (int z = 0; z < envColors[x][y].length; z++){
+                    envColors[x][y][z] = null;
+                }
+            }
+        }
     }
     
     

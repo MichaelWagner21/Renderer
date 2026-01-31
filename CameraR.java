@@ -1,16 +1,24 @@
+
+
+
 import java.awt.Color;
 
 
 public class CameraR extends PhysicalObjectR{
 
-	
 	private double fovHori;
 	private double fovVer;
+	
+	private double halfFovHori;
+	private double halfFovVer;
 
 	private int screenWidth;
 	private int screenHeight;
 
 	public Color[][] projection;
+
+	private double halfScreenWidth;
+	private double halfScreenHeight;
 
 
 	public CameraR(int screenWidthIn, int screenHeightIn){
@@ -21,12 +29,22 @@ public class CameraR extends PhysicalObjectR{
 		this.xAng = 0;
 		this.yAng = 0;
 		this.zAng = 0;
+
+		this.fovHori = Math.toRadians(200.0);
+		this.fovVer = Math.toRadians(135);
 	
-		this.fovHori = 200;	
-		this.fovVer = 135;
+		//Already in radians
+		this.halfFovHori = fovHori / 2.0;	
+		this.halfFovVer = fovVer / 2.0;
 		
 		this.screenWidth = screenWidthIn;
 		this.screenHeight = screenHeightIn;
+
+		this.halfScreenWidth = (double)(screenWidth)/2.0;
+		this.halfScreenHeight = (double)(screenHeight)/2.0;
+
+		this.projection = new Color[screenWidthIn][screenHeightIn];
+
 
 	
 	} 
@@ -38,21 +56,24 @@ public class CameraR extends PhysicalObjectR{
 		this.x = xIn;
 		this.y = yIn;
 		this.z = zIn;
-		this.xAng = xAngIn;
-		this.yAng = yAngIn;
-		this.zAng = zAngIn;
-		this.fovHori = fovHoriIn;
-		this.fovVer = fovVerIn;
+		this.xAng = Math.toRadians(xAngIn);
+		this.yAng = Math.toRadians(yAngIn);
+		this.zAng = Math.toRadians(zAngIn);
+		this.fovHori = Math.toRadians(fovHoriIn);
+		this.fovVer = Math.toRadians(fovVerIn);
+		this.halfFovHori = Math.toRadians((fovHoriIn/2));
+		this.halfFovVer = Math.toRadians((fovVerIn/2));
 		this.screenWidth = screenWidthIn;
 		this.screenHeight = screenHeightIn;
+		this.projection = new Color[screenWidthIn][screenHeightIn];
 	}
 
 	
-	public double getFovHori(){
-		return fovHori;
+	public double getHalfFovHori(){
+		return halfFovHori;
 	}
-	public double getFovVer(){
-		return fovVer;
+	public double getHalfFovVer(){
+		return halfFovVer;
 	}
 	
 	public String toString(){
@@ -62,8 +83,8 @@ public class CameraR extends PhysicalObjectR{
 					  "\n xAng: " + String.valueOf(this.xAng) +
 					  "\n yAng: " + String.valueOf(this.yAng) +
 					  "\n zAng: " + String.valueOf(this.zAng) +
-					  "\n fovHori: "+String.valueOf(this.fovHori) +
-					  "\n fovVer: "+ String.valueOf(this.fovVer) +
+					  "\n fovHori: "+String.valueOf(this.halfFovHori) +
+					  "\n fovVer: "+ String.valueOf(this.halfFovVer) +
 					  "\n screenWidth: "+String.valueOf(this.screenWidth) +
 					  "\n screenHeight: "+String.valueOf(this.screenHeight);
 	}
@@ -71,8 +92,179 @@ public class CameraR extends PhysicalObjectR{
 	public void camUpdate(){
 		//TODO: This
 	}
-	public void updateProjection(){
+	public void updateProjection(EnvironmentR env){
 
+
+		for (int screenX = 0; screenX < this.screenWidth; screenX++){
+			for (int screenY = 0; screenY < this.screenHeight; screenY++){
+
+				Color calculatedColor = getColorAtScreenPosition(screenX, screenY, env);
+
+
+				projection[screenX][screenY] = calculatedColor;
+
+			}
+		}
+	}
+
+	public Color getColorAtScreenPosition(int screenX, int screenY, EnvironmentR env){
+		//Roll: x-axis
+		//Pitch: y-axis
+		//Yaw: z-axis
+
+		//fovHori: Yaw, z-axis, screenX, zOffset
+		//fovVer: Pitch, y-axis, screenY, yOffset
+
+		double zOffset = (screenX - halfScreenWidth) * (halfFovHori/halfScreenWidth);
+		double yOffset = (screenY - halfScreenHeight) * (halfFovVer/halfScreenHeight);
+
+
+		double[] endpoints = endpointFinder(this.x, this.y, this.z, this.xAng, this.yAng+yOffset, this.zAng+zOffset, env.maxEnvLength);
+
+		double currentPointX = this.x;
+		double currentPointY = this.y;
+		double currentPointZ = this.z;
+
+		double x2 = (endpoints[0]);
+		double y2 = (endpoints[1]);
+		double z2 = (endpoints[2]);
+
+
+		if ((Math.abs(currentPointX) <= env.xMax/2) && (Math.abs(currentPointY) <= env.yMax/2) && (Math.abs(currentPointZ) <= env.zMax/2)){
+			if (env.getColor((int)Math.round(currentPointX), (int)Math.round(currentPointY), (int)Math.round(currentPointZ)) != null){
+				return env.getColor((int)Math.round(currentPointX), (int)Math.round(currentPointY), (int)Math.round(currentPointZ));
+			}
+		}
+		else {
+			return Color.BLACK;
+		}
+		
+
+		double dx = Math.abs(x2 - currentPointX);
+		double dy = Math.abs(y2 - currentPointY);
+		double dz = Math.abs(z2 - currentPointZ);
+		double xs;
+		double ys;
+		double zs;
+		if (x2 > currentPointX) {
+			xs = 1;
+		} 
+		else {
+			xs = -1;
+		}
+		if (y2 > currentPointY) {
+			ys = 1;
+		} 
+		else {
+			ys = -1;
+		}
+		if (z2 > currentPointZ) {
+			zs = 1;
+		} 
+		else {
+			zs = -1;
+		}
+
+		// Driving axis is X-axis"
+		if (dx >= dy && dx >= dz) {
+		double p1 = 2 * dy - dx;
+		double p2 = 2 * dz - dx;
+		while (currentPointX != x2) {
+			currentPointX += xs;
+			if (p1 >= 0) {
+				currentPointY += ys;
+				p1 -= 2 * dx;
+			}
+			if (p2 >= 0) {
+				currentPointZ += zs;
+				p2 -= 2 * dx;
+			}
+			p1 += 2 * dy;
+			p2 += 2 * dz;
+			if ((Math.abs(currentPointX) <= env.xMax/2) && (Math.abs(currentPointY) <= env.yMax/2) && (Math.abs(currentPointZ) <= env.zMax/2)){
+				if (env.getColor((int)Math.round(currentPointX), (int)Math.round(currentPointY), (int)Math.round(currentPointZ)) != null){
+					return env.getColor((int)Math.round(currentPointX), (int)Math.round(currentPointY), (int)Math.round(currentPointZ));
+				}
+			}
+			else {
+				return Color.BLACK;
+			}
+		}
+
+		// Driving axis is Y-axis"
+		} else if (dy >= dx && dy >= dz) {
+		double p1 = 2 * dx - dy;
+		double p2 = 2 * dz - dy;
+		while (currentPointY != y2) {
+			currentPointY += ys;
+			if (p1 >= 0) {
+				currentPointX += xs;
+				p1 -= 2 * dy;
+			}
+			if (p2 >= 0) {
+				currentPointZ += zs;
+				p2 -= 2 * dy;
+			}
+			p1 += 2 * dx;
+			p2 += 2 * dz;
+			if ((Math.abs(currentPointX) <= env.xMax/2) && (Math.abs(currentPointY) <= env.yMax/2) && (Math.abs(currentPointZ) <= env.zMax/2)){
+				if (env.getColor((int)Math.round(currentPointX), (int)Math.round(currentPointY), (int)Math.round(currentPointZ)) != null){
+					return env.getColor((int)Math.round(currentPointX), (int)Math.round(currentPointY), (int)Math.round(currentPointZ));
+				}
+			}
+			else {
+				return Color.BLACK;
+			}
+		}
+
+		// Driving axis is Z-axis"
+		} else {
+		double p1 = 2 * dy - dz;
+		double p2 = 2 * dx - dz;
+		while (currentPointZ != z2) {
+			currentPointZ += zs;
+			if (p1 >= 0) {
+				currentPointY += ys;
+				p1 -= 2 * dz;
+			}
+			if (p2 >= 0) {
+				currentPointX += xs;
+				p2 -= 2 * dz;
+			}
+			p1 += 2 * dy;
+			p2 += 2 * dx;
+			if ((Math.abs(currentPointX) <= env.xMax/2) && (Math.abs(currentPointY) <= env.yMax/2) && (Math.abs(currentPointZ) <= env.zMax/2)){
+				if (env.getColor((int)Math.round(currentPointX), (int)Math.round(currentPointY), (int)Math.round(currentPointZ)) != null){
+					return env.getColor((int)Math.round(currentPointX), (int)Math.round(currentPointY), (int)Math.round(currentPointZ));
+				}
+			}
+			else {
+				return Color.BLACK;
+			}
+		}
+		}
+		return Color.BLACK;
+	}
+
+	
+	
+
+
+	public double[] endpointFinder(int x, int y, int z, double xAng, double yAng, double zAng, double length){
+    // xAng = roll (unused here), yAng = pitch (elevation), zAng = yaw (azimuth)
+    // Use pitch/yaw -> direction:
+    // dx = cos(pitch) * sin(yaw)
+    // dy = sin(pitch)
+    // dz = cos(pitch) * cos(yaw)
+    double dx = Math.cos(yAng) * Math.sin(zAng);
+    double dy = Math.sin(yAng);
+    double dz = Math.cos(yAng) * Math.cos(zAng);
+
+    double endPointX = x + length * dx;
+    double endPointY = y + length * dy;
+    double endPointZ = z + length * dz;
+
+    return new double[] { endPointX, endPointY, endPointZ };
 	}
 
 
