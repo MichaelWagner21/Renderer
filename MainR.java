@@ -40,14 +40,19 @@ public class MainR {
         thisPanel.fillCanvas(Color.BLACK);
 
         CameraR camera1 = new CameraR(XBOUND, YBOUND);
-        EnvironmentR myEnv = new EnvironmentR(15, 15, 15);
+        EnvironmentR myEnv = new EnvironmentR(30, 30, 30);
         for (int x = -5; x <= 5; x++){
             myEnv.drawLine(Color.CYAN, x, 5, 15, x, -5, 15);
         }
         //System.out.print(myEnv);
 
-        camera1.updateProjection(myEnv);
-        thisPanel.render(camera1.projection, XBOUND, YBOUND);
+        for (int i = 0; i < 30; i++){
+            camera1.x -= 1;
+            camera1.updateProjection(myEnv);
+            thisPanel.render(camera1.projection, XBOUND, YBOUND);
+        }
+        // camera1.updateProjection(myEnv);
+        // thisPanel.render(camera1.projection, XBOUND, YBOUND);
     }
 
 
