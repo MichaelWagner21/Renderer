@@ -12,8 +12,8 @@ import javax.swing.SwingUtilities;
 public class MainR {
     
     
-    final static int XBOUND = 775;
-    final static int YBOUND = 750;
+    final static int XBOUND = 600;
+    final static int YBOUND = 405;
     
     
 
@@ -41,8 +41,8 @@ public class MainR {
 
         CameraR camera1 = new CameraR(XBOUND, YBOUND);
         EnvironmentR myEnv = new EnvironmentR(15, 15, 15);
-        for (int x = -10; x <= 10; x++){
-            myEnv.drawLine(Color.CYAN, x, 10, 15, x, -10, 15);
+        for (int x = -5; x <= 5; x++){
+            myEnv.drawLine(Color.CYAN, x, 5, 15, x, -5, 15);
         }
         //System.out.print(myEnv);
 
