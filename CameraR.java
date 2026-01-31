@@ -118,6 +118,9 @@ public class CameraR extends PhysicalObjectR{
 		double zOffset = (screenX - halfScreenWidth) * (halfFovHori/halfScreenWidth);
 		double yOffset = (screenY - halfScreenHeight) * (halfFovVer/halfScreenHeight);
 
+		// System.out.print("DEBUG: \nscreenX = "+String.valueOf(screenX)+"\nscreenY = "+String.valueOf(screenY)
+		// +"\nzOffset = "+String.valueOf(zOffset*180/Math.PI)+"\nyOffset = "+String.valueOf(yOffset*180/Math.PI)+"\n\n");
+
 
 		double[] endpoints = endpointFinder(this.x, this.y, this.z, this.xAng, this.yAng+yOffset, this.zAng+zOffset, env.maxEnvLength);
 
@@ -130,12 +133,12 @@ public class CameraR extends PhysicalObjectR{
 		double z2 = (endpoints[2]);
 
 
-		if ((Math.abs(currentPointX) <= env.xMax/2) && (Math.abs(currentPointY) <= env.yMax/2) && (Math.abs(currentPointZ) <= env.zMax/2)){
+		try{
 			if (env.getColor((int)Math.round(currentPointX), (int)Math.round(currentPointY), (int)Math.round(currentPointZ)) != null){
 				return env.getColor((int)Math.round(currentPointX), (int)Math.round(currentPointY), (int)Math.round(currentPointZ));
 			}
 		}
-		else {
+		catch(Exception e){
 			return Color.BLACK;
 		}
 		
@@ -181,12 +184,12 @@ public class CameraR extends PhysicalObjectR{
 			}
 			p1 += 2 * dy;
 			p2 += 2 * dz;
-			if ((Math.abs(currentPointX) <= env.xMax/2) && (Math.abs(currentPointY) <= env.yMax/2) && (Math.abs(currentPointZ) <= env.zMax/2)){
+			try{
 				if (env.getColor((int)Math.round(currentPointX), (int)Math.round(currentPointY), (int)Math.round(currentPointZ)) != null){
 					return env.getColor((int)Math.round(currentPointX), (int)Math.round(currentPointY), (int)Math.round(currentPointZ));
 				}
 			}
-			else {
+			catch(Exception e){
 				return Color.BLACK;
 			}
 		}
@@ -207,12 +210,12 @@ public class CameraR extends PhysicalObjectR{
 			}
 			p1 += 2 * dx;
 			p2 += 2 * dz;
-			if ((Math.abs(currentPointX) <= env.xMax/2) && (Math.abs(currentPointY) <= env.yMax/2) && (Math.abs(currentPointZ) <= env.zMax/2)){
-				if (env.getColor((int)Math.round(currentPointX), (int)Math.round(currentPointY), (int)Math.round(currentPointZ)) != null){
-					return env.getColor((int)Math.round(currentPointX), (int)Math.round(currentPointY), (int)Math.round(currentPointZ));
-				}
+					try{
+			if (env.getColor((int)Math.round(currentPointX), (int)Math.round(currentPointY), (int)Math.round(currentPointZ)) != null){
+				return env.getColor((int)Math.round(currentPointX), (int)Math.round(currentPointY), (int)Math.round(currentPointZ));
 			}
-			else {
+			}
+			catch(Exception e){
 				return Color.BLACK;
 			}
 		}
@@ -233,12 +236,12 @@ public class CameraR extends PhysicalObjectR{
 			}
 			p1 += 2 * dy;
 			p2 += 2 * dx;
-			if ((Math.abs(currentPointX) <= env.xMax/2) && (Math.abs(currentPointY) <= env.yMax/2) && (Math.abs(currentPointZ) <= env.zMax/2)){
-				if (env.getColor((int)Math.round(currentPointX), (int)Math.round(currentPointY), (int)Math.round(currentPointZ)) != null){
-					return env.getColor((int)Math.round(currentPointX), (int)Math.round(currentPointY), (int)Math.round(currentPointZ));
-				}
+					try{
+			if (env.getColor((int)Math.round(currentPointX), (int)Math.round(currentPointY), (int)Math.round(currentPointZ)) != null){
+				return env.getColor((int)Math.round(currentPointX), (int)Math.round(currentPointY), (int)Math.round(currentPointZ));
 			}
-			else {
+			}
+			catch(Exception e){
 				return Color.BLACK;
 			}
 		}

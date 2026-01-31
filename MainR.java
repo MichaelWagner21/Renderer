@@ -40,9 +40,11 @@ public class MainR {
         thisPanel.fillCanvas(Color.BLACK);
 
         CameraR camera1 = new CameraR(XBOUND, YBOUND);
-        EnvironmentR myEnv = new EnvironmentR(10, 10, 10);
-        //myEnv.drawTetrahedron(Color.cyan, 0, 0, 3, -2, 2, 5, 2, 2, 5, 0, -2, 5);
-        myEnv.drawLine(Color.CYAN, -5, 0, 4, 5, 0, 4);
+        EnvironmentR myEnv = new EnvironmentR(15, 15, 15);
+        for (int x = -10; x <= 10; x++){
+            myEnv.drawLine(Color.CYAN, x, 10, 15, x, -10, 15);
+        }
+        //System.out.print(myEnv);
 
         camera1.updateProjection(myEnv);
         thisPanel.render(camera1.projection, XBOUND, YBOUND);
