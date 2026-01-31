@@ -1,5 +1,4 @@
 import java.awt.Color;
-import java.util.List;
 
 //this 3d space will have negative coordinates, which is why some values are multiplied
 //by 2 and indexes are offset by the coordinate maxes (because an array can't have negative indexes)
