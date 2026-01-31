@@ -138,19 +138,24 @@ public class MainR {
 
         //Main Loop
         while (true){
-            if (MainR.isWPressed()){
-                activeCamera.z += 1;
+            if ( !(MainR.isWPressed() && MainR.isSPressed())){
+                if (MainR.isWPressed()){
+                    activeCamera.z += 1;
+                }
+                else if (MainR.isSPressed()){
+                    activeCamera.z -= 1;
+                }
             }
-            else if (MainR.isSPressed()){
-                activeCamera.z -= 1;
-            }
-
-            if (MainR.isAPressed()){
+            
+            if ( !(MainR.isAPressed() && MainR.isDPressed())){
+                if (MainR.isAPressed()){
                 activeCamera.x -= 1;
+                }
+                else if (MainR.isDPressed()){
+                    activeCamera.x += 1;
+                }
             }
-            else if (MainR.isDPressed()){
-                activeCamera.x += 1;
-            }
+            
             activeCamera.updateProjection(myEnv);
             thisPanel.render(activeCamera.projection, XBOUND, YBOUND);
         }
