@@ -30,8 +30,11 @@ public class CameraR extends PhysicalObjectR{
 		this.pitch = 0;
 		this.yaw = 0;
 
-		this.fovHori = 3.49066; // 200 Degrees in Radians
-		this.fovVer = 2.35619; // 135 Degrees in Radians
+		//this.fovHori = 3.49066; // 200 Degrees in Radians
+		this.fovHori = 1.8326; // 105 Degrees in Radians
+		
+		//this.fovVer = 2.35619; // 135 Degrees in Radians
+		this.fovVer = 1.22173; // 70 Degrees in Radians
 	
 		//Already in radians
 		this.halfFovHori = fovHori / 2.0;	
