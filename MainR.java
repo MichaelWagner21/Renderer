@@ -22,6 +22,9 @@ public class MainR {
     
     final static int XBOUND = 600;
     final static int YBOUND = 405;
+
+    final static int MOVEMENT_SPEED = 1;
+    final static double CAMERA_SPEED = 0.0523599;
     
     
 
@@ -36,6 +39,18 @@ public class MainR {
 
     private static volatile boolean aPressed = false;
     private static volatile boolean dPressed = false;
+
+
+    private static volatile boolean upPressed = false;
+    private static volatile boolean downPressed = false;
+
+    private static volatile boolean rightPressed = false;
+    private static volatile boolean leftPressed = false;
+
+
+    private static volatile boolean spacePressed = false;
+    private static volatile boolean shiftPressed = false;
+
 
     //Following Methods: Copied from stack overflow
     public static boolean isWPressed() {
@@ -56,6 +71,40 @@ public class MainR {
     public static boolean isDPressed() {
         synchronized (MainR.class) {
             return dPressed;
+        }
+    }
+
+
+    public static boolean isUpPressed() {
+        synchronized (MainR.class) {
+            return upPressed;
+        }
+    }
+    public static boolean isDownPressed() {
+        synchronized (MainR.class) {
+            return downPressed;
+        }
+    }
+    public static boolean isRightPressed() {
+        synchronized (MainR.class) {
+            return rightPressed;
+        }
+    }
+    public static boolean isLeftPressed() {
+        synchronized (MainR.class) {
+            return leftPressed;
+        }
+    }
+
+
+    public static boolean isSpacePressed() {
+        synchronized (MainR.class) {
+            return spacePressed;
+        }
+    }
+    public static boolean isShiftPressed() {
+        synchronized (MainR.class) {
+            return shiftPressed;
         }
     }
 
@@ -83,6 +132,28 @@ public class MainR {
                         if (ke.getKeyCode() == KeyEvent.VK_D) {
                             dPressed = true;
                         }
+
+
+                        if (ke.getKeyCode() == KeyEvent.VK_UP) {
+                            upPressed = true;
+                        }
+                        if (ke.getKeyCode() == KeyEvent.VK_DOWN) {
+                            downPressed = true;
+                        }
+                        if (ke.getKeyCode() == KeyEvent.VK_RIGHT) {
+                            rightPressed = true;
+                        }
+                        if (ke.getKeyCode() == KeyEvent.VK_LEFT) {
+                            leftPressed = true;
+                        }
+
+
+                        if (ke.getKeyCode() == KeyEvent.VK_SPACE) {
+                            spacePressed = true;
+                        }
+                        if (ke.getKeyCode() == KeyEvent.VK_SHIFT) {
+                            shiftPressed = true;
+                        }
                         break;
 
                     case KeyEvent.KEY_RELEASED:
@@ -98,6 +169,29 @@ public class MainR {
                         if (ke.getKeyCode() == KeyEvent.VK_D) {
                             dPressed = false;
                         }
+
+
+                        if (ke.getKeyCode() == KeyEvent.VK_UP) {
+                            upPressed = false;
+                        }
+                        if (ke.getKeyCode() == KeyEvent.VK_DOWN) {
+                            downPressed = false;
+                        }
+                        if (ke.getKeyCode() == KeyEvent.VK_RIGHT) {
+                            rightPressed = false;
+                        }
+                        if (ke.getKeyCode() == KeyEvent.VK_LEFT) {
+                            leftPressed = false;
+                        }
+
+
+                        if (ke.getKeyCode() == KeyEvent.VK_SPACE) {
+                            spacePressed = false;
+                        }
+                        if (ke.getKeyCode() == KeyEvent.VK_SHIFT) {
+                            shiftPressed = false;
+                        }
+                        
                         break;
                     }
                     return false;
@@ -128,11 +222,48 @@ public class MainR {
         EnvironmentR myEnv = new EnvironmentR(50, 50, 50);
 
 
-
-
+        //Top Face
+        for (int x = -5; x <= 5; x++){
+            myEnv.drawLine(Color.GREEN, x, 5, 15, x, 5, 25);
+        }
+        //Front Face
         for (int x = -5; x <= 5; x++){
             myEnv.drawLine(Color.CYAN, x, 5, 15, x, -5, 15);
         }
+        //Right Face
+        for (int y = -5; y <= 5; y++){
+            myEnv.drawLine(Color.MAGENTA, 5, y, 15, 5, y, 25);
+        }
+        
+        //Bottom Face
+        for (int x = -5; x <= 5; x++){
+            myEnv.drawLine(Color.YELLOW, x, -5, 15, x, -5, 25);
+        }
+        //Back Face
+        for (int x = -5; x <= 5; x++){
+            myEnv.drawLine(Color.RED, x, 5, 25, x, -5, 25);
+        }
+        
+        //Left Face
+        for (int y = -5; y <= 5; y++){
+            myEnv.drawLine(Color.PINK, -5, y, 15, -5, y, 25);
+        }
+        //Black Borders
+        myEnv.drawLine(Color.WHITE, -5, 5, 15, 5, 5, 15);
+        myEnv.drawLine(Color.WHITE, -5, -5, 15, 5, -5, 15);
+        myEnv.drawLine(Color.WHITE, -5, 5, 25, 5, 5, 25);
+        myEnv.drawLine(Color.WHITE, -5, -5, 25, 5, -5, 25);
+        
+        myEnv.drawLine(Color.WHITE, -5, 5, 15, -5, 5, 25);
+        myEnv.drawLine(Color.WHITE, 5, 5, 15, 5, 5, 25);
+        myEnv.drawLine(Color.WHITE, -5, -5, 15, -5, -5, 25);
+        myEnv.drawLine(Color.WHITE, 5, -5, 15, 5, -5, 25);
+
+        myEnv.drawLine(Color.WHITE, 5, -5, 15, 5, 5, 15);
+        myEnv.drawLine(Color.WHITE, -5, -5, 15, -5, 5, 15);
+        myEnv.drawLine(Color.WHITE, 5, -5, 25, 5, 5, 25);
+        myEnv.drawLine(Color.WHITE, -5, -5, 25, -5, 5, 25);
+        
         //System.out.print(myEnv);
 
 
@@ -140,21 +271,49 @@ public class MainR {
         while (true){
             if ( !(MainR.isWPressed() && MainR.isSPressed())){
                 if (MainR.isWPressed()){
-                    activeCamera.z += 1;
+                    activeCamera.z += MOVEMENT_SPEED;
                 }
                 else if (MainR.isSPressed()){
-                    activeCamera.z -= 1;
+                    activeCamera.z -= MOVEMENT_SPEED;
                 }
             }
             
             if ( !(MainR.isAPressed() && MainR.isDPressed())){
                 if (MainR.isAPressed()){
-                activeCamera.x -= 1;
+                activeCamera.x -= MOVEMENT_SPEED;
                 }
                 else if (MainR.isDPressed()){
-                    activeCamera.x += 1;
+                    activeCamera.x += MOVEMENT_SPEED;
                 }
             }
+
+            if ( !(MainR.isUpPressed() && MainR.isDownPressed())){
+                if (MainR.isUpPressed()){
+                    activeCamera.pitch += CAMERA_SPEED;
+                }
+                else if (MainR.isDownPressed()){
+                    activeCamera.pitch -= CAMERA_SPEED;
+                }
+            }
+
+            if ( !(MainR.isLeftPressed() && MainR.isRightPressed())){
+                if (MainR.isLeftPressed()){
+                    activeCamera.yaw -= CAMERA_SPEED;
+                }
+                else if (MainR.isRightPressed()){
+                    activeCamera.yaw += CAMERA_SPEED;
+                }
+            }
+
+            if ( !(MainR.isSpacePressed() && MainR.isShiftPressed())){
+                if (MainR.isSpacePressed()){
+                    activeCamera.y += MOVEMENT_SPEED;
+                }
+                else if (MainR.isShiftPressed()){
+                    activeCamera.y -= MOVEMENT_SPEED;
+                }
+            }
+
             
             activeCamera.updateProjection(myEnv);
             thisPanel.render(activeCamera.projection, XBOUND, YBOUND);
