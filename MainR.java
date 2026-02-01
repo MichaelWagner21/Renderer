@@ -23,8 +23,8 @@ public class MainR {
     final static int XBOUND = 600;
     final static int YBOUND = 405;
 
-    final static int MOVEMENT_SPEED = 1;
-    final static double CAMERA_SPEED = 0.0523599;
+    final static double MOVEMENT_SPEED = 1.0;
+    final static double CAMERA_SPEED = 0.122173;
     
     
 
@@ -266,24 +266,26 @@ public class MainR {
         
         //System.out.print(myEnv);
 
+        //myEnv.drawTetrahedron(Color.LIGHT_GRAY, );
+
 
         //Main Loop
         while (true){
             if ( !(MainR.isWPressed() && MainR.isSPressed())){
                 if (MainR.isWPressed()){
-                    activeCamera.z += MOVEMENT_SPEED;
+                    activeCamera.moveForward(MOVEMENT_SPEED);
                 }
                 else if (MainR.isSPressed()){
-                    activeCamera.z -= MOVEMENT_SPEED;
+                    activeCamera.moveBackward(MOVEMENT_SPEED);
                 }
             }
             
             if ( !(MainR.isAPressed() && MainR.isDPressed())){
                 if (MainR.isAPressed()){
-                activeCamera.x -= MOVEMENT_SPEED;
+                    activeCamera.moveLeft(MOVEMENT_SPEED);
                 }
                 else if (MainR.isDPressed()){
-                    activeCamera.x += MOVEMENT_SPEED;
+                    activeCamera.moveRight(MOVEMENT_SPEED);
                 }
             }
 
@@ -337,7 +339,7 @@ public class MainR {
           }
     }
 
-    public static void update(PanelR w){
+    /*public static void update(PanelR w){
         SwingUtilities.updateComponentTreeUI(w);
     }
 
@@ -348,7 +350,7 @@ public class MainR {
     public static double randNumDouble(double min, double max){
         Random r = new Random();
         return min + (max - min) * r.nextDouble();
-    }
+    }*/
 
 }
     

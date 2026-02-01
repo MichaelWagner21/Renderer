@@ -1,19 +1,26 @@
 public class PhysicalObjectR {
-    int x;
-	int y;
-	int z;
+    double x;
+	double y;
+	double z;
 	
 	double roll;
 	double pitch;
 	double yaw;
     
-    public int getX(){
-		return x;
+	public void moveForward(double speed){
+		z += (int)Math.round(speed * Math.cos(yaw));
+		x += (int)Math.round(speed * Math.sin(yaw));
 	}
-	public int getY(){
-		return y;
+	public void moveBackward(double speed){
+		z -= (int)Math.round(speed * Math.cos(yaw));
+		x -= (int)Math.round(speed * Math.sin(yaw));
 	}
-	public int getZ(){
-		return z;
+	public void moveLeft(double speed){
+		z += (int)Math.round(speed * Math.sin(yaw));
+		x -= (int)Math.round(speed * Math.cos(yaw));
 	}
+	public void moveRight(double speed){
+		z -= (int)Math.round(speed * Math.sin(yaw));
+		x += (int)Math.round(speed * Math.cos(yaw));
+	} 
 }

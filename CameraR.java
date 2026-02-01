@@ -256,7 +256,7 @@ public class CameraR extends PhysicalObjectR{
 	
 
 	//Written by me, fixed by Copilot
-	public double[] endpointFinder(int x, int y, int z, double xAng, double yAng, double zAng, double length){
+	public double[] endpointFinder(double x, double y, double z, double xAng, double yAng, double zAng, double length){
     //Roll: x-axis
 	//Pitch: y-axis
 	//Yaw: z-axis
