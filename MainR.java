@@ -2,10 +2,8 @@
 //y: 0-750
 
 import java.awt.Color;
-import java.util.Random;
 
 import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
 
 
 import java.awt.KeyEventDispatcher;

@@ -1,7 +1,7 @@
 public class PhysicalObjectR {
-    double x;
-	double y;
-	double z;
+    int x;
+	int y;
+	int z;
 	
 	double roll;
 	double pitch;

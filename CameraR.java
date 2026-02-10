@@ -127,9 +127,9 @@ public class CameraR extends PhysicalObjectR{
 
 		double[] endpoints = endpointFinder(this.x, this.y, this.z, this.roll, this.pitch+yOffset, this.yaw+zOffset, env.maxEnvLength);
 
-		double currentPointX = this.x;
-		double currentPointY = this.y;
-		double currentPointZ = this.z;
+		int currentPointX = this.x;
+		int currentPointY = this.y;
+		int currentPointZ = this.z;
 
 		double x2 = (endpoints[0]);
 		double y2 = (endpoints[1]);
@@ -149,9 +149,9 @@ public class CameraR extends PhysicalObjectR{
 		double dx = Math.abs(x2 - currentPointX);
 		double dy = Math.abs(y2 - currentPointY);
 		double dz = Math.abs(z2 - currentPointZ);
-		double xs;
-		double ys;
-		double zs;
+		int xs;
+		int ys;
+		int zs;
 		if (x2 > currentPointX) {
 			xs = 1;
 		} 
@@ -256,7 +256,7 @@ public class CameraR extends PhysicalObjectR{
 	
 
 	//Written by me, fixed by Copilot
-	public double[] endpointFinder(double x, double y, double z, double xAng, double yAng, double zAng, double length){
+	public double[] endpointFinder(int x, int y, int z, double xAng, double yAng, double zAng, double length){
     //Roll: x-axis
 	//Pitch: y-axis
 	//Yaw: z-axis
@@ -268,9 +268,9 @@ public class CameraR extends PhysicalObjectR{
     double dy = Math.sin(yAng);
     double dz = Math.cos(yAng) * Math.cos(zAng);
 
-    double endPointX = x + length * dx;
-    double endPointY = y + length * dy;
-    double endPointZ = z + length * dz;
+    double endPointX = x + (length * dx);
+    double endPointY = y + (length * dy);
+    double endPointZ = z + (length * dz);
 
     return new double[] { endPointX, endPointY, endPointZ };
 	}
