@@ -127,22 +127,65 @@ public class CameraR extends PhysicalObjectR{
 
 		double[] endpoints = endpointFinder(this.x, this.y, this.z, this.roll, this.pitch+yOffset, this.yaw+zOffset, env.maxEnvLength);
 
-		int currentPointX = this.x;
-		int currentPointY = this.y;
-		int currentPointZ = this.z;
-
 		double x2 = (endpoints[0]);
 		double y2 = (endpoints[1]);
 		double z2 = (endpoints[2]);
 
+		Integer[] returnCoords = getHitCoords(x2, y2, z2, env);
+
+		if (returnCoords[0] == null){
+			return Color.BLACK;
+		}
+
+		Color returnColor = env.getColor(returnCoords[0], returnCoords[1], returnCoords[2]);
+
+		return returnColor;
+		
+	}
+
+	
+	
+
+	//Written by me, fixed by Copilot
+	public double[] endpointFinder(int x, int y, int z, double xAng, double yAng, double zAng, double length){
+    //Roll: x-axis
+	//Pitch: y-axis
+	//Yaw: z-axis
+
+	//fovHori: Yaw, z-axis, screenX, zOffset
+	//fovVer: Pitch, y-axis, screenY, yOffset
+	
+    double dx = Math.cos(yAng) * Math.sin(zAng);
+    double dy = Math.sin(yAng);
+    double dz = Math.cos(yAng) * Math.cos(zAng);
+
+    double endPointX = x + (length * dx);
+    double endPointY = y + (length * dy);
+    double endPointZ = z + (length * dz);
+
+    return new double[] { endPointX, endPointY, endPointZ };
+	}
+
+	public void shoot(EnvironmentR env){
+		double[] endpoints = endpointFinder(this.x, this.y, this.z, this.roll, this.pitch, this.yaw, env.maxEnvLength);
+		double x2 = (endpoints[0]);
+		double y2 = (endpoints[1]);
+		double z2 = (endpoints[2]);
+	}
+
+	public Integer[] getHitCoords(double x2, double y2, double z2, EnvironmentR env){
+		int currentPointX = this.x;
+		int currentPointY = this.y;
+		int currentPointZ = this.z;
 
 		try{
-			if (env.getColor((int)Math.round(currentPointX), (int)Math.round(currentPointY), (int)Math.round(currentPointZ)) != null){
-				return env.getColor((int)Math.round(currentPointX), (int)Math.round(currentPointY), (int)Math.round(currentPointZ));
+			if (env.getColor(currentPointX, currentPointY, currentPointZ) != null){
+				Integer[] returnVals = {currentPointX, currentPointY, currentPointZ};
+				return returnVals;
 			}
 		}
 		catch(Exception e){
-			return Color.BLACK;
+			return new Integer[3];
 		}
 		
 
@@ -189,11 +232,12 @@ public class CameraR extends PhysicalObjectR{
 			p2 += 2 * dz;
 			try{
 				if (env.getColor((int)Math.round(currentPointX), (int)Math.round(currentPointY), (int)Math.round(currentPointZ)) != null){
-					return env.getColor((int)Math.round(currentPointX), (int)Math.round(currentPointY), (int)Math.round(currentPointZ));
+					Integer[] returnVals = {currentPointX, currentPointY, currentPointZ};
+					return returnVals;
 				}
 			}
 			catch(Exception e){
-				return Color.BLACK;
+				return new Integer[3];
 			}
 		}
 
@@ -215,11 +259,12 @@ public class CameraR extends PhysicalObjectR{
 			p2 += 2 * dz;
 					try{
 			if (env.getColor((int)Math.round(currentPointX), (int)Math.round(currentPointY), (int)Math.round(currentPointZ)) != null){
-				return env.getColor((int)Math.round(currentPointX), (int)Math.round(currentPointY), (int)Math.round(currentPointZ));
+				Integer[] returnVals = {currentPointX, currentPointY, currentPointZ};
+				return returnVals;
 			}
 			}
 			catch(Exception e){
-				return Color.BLACK;
+				return new Integer[3];
 			}
 		}
 
@@ -241,38 +286,18 @@ public class CameraR extends PhysicalObjectR{
 			p2 += 2 * dx;
 					try{
 			if (env.getColor((int)Math.round(currentPointX), (int)Math.round(currentPointY), (int)Math.round(currentPointZ)) != null){
-				return env.getColor((int)Math.round(currentPointX), (int)Math.round(currentPointY), (int)Math.round(currentPointZ));
+				Integer[] returnVals = {currentPointX, currentPointY, currentPointZ};
+				return returnVals;
 			}
 			}
 			catch(Exception e){
-				return Color.BLACK;
+				return new Integer[3];
 			}
 		}
 		}
-		return Color.BLACK;
-	}
+		return new Integer[3];
+		
 
-	
-	
-
-	//Written by me, fixed by Copilot
-	public double[] endpointFinder(int x, int y, int z, double xAng, double yAng, double zAng, double length){
-    //Roll: x-axis
-	//Pitch: y-axis
-	//Yaw: z-axis
-
-	//fovHori: Yaw, z-axis, screenX, zOffset
-	//fovVer: Pitch, y-axis, screenY, yOffset
-	
-    double dx = Math.cos(yAng) * Math.sin(zAng);
-    double dy = Math.sin(yAng);
-    double dz = Math.cos(yAng) * Math.cos(zAng);
-
-    double endPointX = x + (length * dx);
-    double endPointY = y + (length * dy);
-    double endPointZ = z + (length * dz);
-
-    return new double[] { endPointX, endPointY, endPointZ };
 	}
 
 

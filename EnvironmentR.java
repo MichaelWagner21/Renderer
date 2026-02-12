@@ -26,6 +26,9 @@ public class EnvironmentR {
     public void setColor(Color c, int x, int y, int z){
         envColors[x+xMax][y+yMax][z+zMax] = c;
     }
+    public void eraseColor(int x, int y, int z){
+        envColors[x+xMax][y+yMax][z+zMax] = null;
+    }
     public Color getColor(int x, int y, int z){
         return envColors[x+xMax][y+yMax][z+zMax];
     }
