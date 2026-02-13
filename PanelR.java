@@ -116,12 +116,21 @@ public class PanelR extends JPanel {
         }
     }
 
+    public void drawCrosshair(Color c){
+        int xMid = width / 2;
+        int yMid = height / 2;
+        this.drawLine(c, xMid, yMid - 5, xMid, yMid + 5);
+        this.drawLine(c, xMid - 5, yMid, xMid + 5, yMid);
+    }
+
     public void render(Color[][] projection, int width, int height){
         for (int screenX = 0; screenX < width; screenX++){
             for (int screenY = 0; screenY < height; screenY++){
                 this.setPixel(screenX, screenY, projection[screenX][screenY]);
             }
         }
+
+        this.drawCrosshair(Color.GRAY);
         repaint();
     }
 

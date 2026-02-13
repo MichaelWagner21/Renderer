@@ -12,6 +12,8 @@ public class EnvironmentR {
 
     double maxEnvLength;
 
+    Color defaultColor = Color.BLACK;
+
 
     public EnvironmentR(int xMaxIn, int yMaxIn, int zMaxIn){
         //one index is added for 0
@@ -30,7 +32,20 @@ public class EnvironmentR {
         envColors[x+xMax][y+yMax][z+zMax] = null;
     }
     public Color getColor(int x, int y, int z){
-        return envColors[x+xMax][y+yMax][z+zMax];
+        
+        int xArrayPos = x+xMax;
+        int yArrayPos = y+yMax;
+        int zArrayPos = z+zMax;
+
+        if ((xArrayPos < envColors.length && (yArrayPos < envColors[0].length && zArrayPos < envColors[0][0].length))
+             && xArrayPos >= 0 && yArrayPos >= 0 && zArrayPos >= 0){
+            return envColors[x+xMax][y+yMax][z+zMax];
+        }
+        else {
+        //If given point is outside list range
+            return defaultColor;
+        }
+        
     }
 
     public void drawLine(Color c, int x1, int y1, int z1, int x2, int y2, int z2){

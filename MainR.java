@@ -49,6 +49,8 @@ public class MainR {
     private static volatile boolean spacePressed = false;
     private static volatile boolean shiftPressed = false;
 
+    private static volatile boolean enterPressed = false;
+
 
     //Following Methods: Copied from stack overflow
     public static boolean isWPressed() {
@@ -106,6 +108,12 @@ public class MainR {
         }
     }
 
+    public static boolean isEnterPressed(){
+        synchronized (MainR.class) {
+            return enterPressed;
+        }
+    }
+
 
 
     public static void main(String[] args){
@@ -152,6 +160,10 @@ public class MainR {
                         if (ke.getKeyCode() == KeyEvent.VK_SHIFT) {
                             shiftPressed = true;
                         }
+
+                        if (ke.getKeyCode() == KeyEvent.VK_ENTER) {
+                            enterPressed = true;
+                        }
                         break;
 
                     case KeyEvent.KEY_RELEASED:
@@ -190,6 +202,9 @@ public class MainR {
                             shiftPressed = false;
                         }
                         
+                        if (ke.getKeyCode() == KeyEvent.VK_ENTER) {
+                            enterPressed = false;
+                        }
                         break;
                     }
                     return false;
@@ -312,6 +327,10 @@ public class MainR {
                 else if (MainR.isShiftPressed()){
                     activeCamera.y -= MOVEMENT_SPEED;
                 }
+            }
+
+            if (MainR.isEnterPressed()){
+                activeCamera.shoot(myEnv);
             }
 
             

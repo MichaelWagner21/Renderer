@@ -1,6 +1,3 @@
-
-
-
 import java.awt.Color;
 
 
@@ -131,11 +128,7 @@ public class CameraR extends PhysicalObjectR{
 		double y2 = (endpoints[1]);
 		double z2 = (endpoints[2]);
 
-		Integer[] returnCoords = getHitCoords(x2, y2, z2, env);
-
-		if (returnCoords[0] == null){
-			return Color.BLACK;
-		}
+		int[] returnCoords = getHitCoords(x2, y2, z2, env);
 
 		Color returnColor = env.getColor(returnCoords[0], returnCoords[1], returnCoords[2]);
 
@@ -171,22 +164,32 @@ public class CameraR extends PhysicalObjectR{
 		double x2 = (endpoints[0]);
 		double y2 = (endpoints[1]);
 		double z2 = (endpoints[2]);
+		
+		int[] hitCoords = getHitCoords(x2, y2, z2, env);
+
+		int hitX = hitCoords[0];
+		int hitY = hitCoords[1];
+		int hitZ = hitCoords[2];
+
+		//Checks that coordinate is not outside of the environment TODO: write bool isInEnv() method to environmentR
+		//in order to delete default colored pixels as well
+		if (env.getColor(hitX, hitY, hitZ) != env.defaultColor){
+			env.setColor(null, hitX, hitY, hitZ);
+		}
+
 	}
 
-	public Integer[] getHitCoords(double x2, double y2, double z2, EnvironmentR env){
+	public int[] getHitCoords(double x2, double y2, double z2, EnvironmentR env){
 		int currentPointX = this.x;
 		int currentPointY = this.y;
 		int currentPointZ = this.z;
 
-		try{
-			if (env.getColor(currentPointX, currentPointY, currentPointZ) != null){
-				Integer[] returnVals = {currentPointX, currentPointY, currentPointZ};
-				return returnVals;
-			}
+		if (env.getColor(currentPointX, currentPointY, currentPointZ) != null){
+			int[] returnVals = {currentPointX, currentPointY, currentPointZ};
+			return returnVals;
 		}
-		catch(Exception e){
-			return new Integer[3];
-		}
+		
+		
 		
 
 		double dx = Math.abs(x2 - currentPointX);
@@ -230,14 +233,9 @@ public class CameraR extends PhysicalObjectR{
 			}
 			p1 += 2 * dy;
 			p2 += 2 * dz;
-			try{
-				if (env.getColor((int)Math.round(currentPointX), (int)Math.round(currentPointY), (int)Math.round(currentPointZ)) != null){
-					Integer[] returnVals = {currentPointX, currentPointY, currentPointZ};
-					return returnVals;
-				}
-			}
-			catch(Exception e){
-				return new Integer[3];
+			if (env.getColor((int)Math.round(currentPointX), (int)Math.round(currentPointY), (int)Math.round(currentPointZ)) != null){
+				int[] returnVals = {currentPointX, currentPointY, currentPointZ};
+				return returnVals;
 			}
 		}
 
@@ -257,14 +255,9 @@ public class CameraR extends PhysicalObjectR{
 			}
 			p1 += 2 * dx;
 			p2 += 2 * dz;
-					try{
 			if (env.getColor((int)Math.round(currentPointX), (int)Math.round(currentPointY), (int)Math.round(currentPointZ)) != null){
-				Integer[] returnVals = {currentPointX, currentPointY, currentPointZ};
+				int[] returnVals = {currentPointX, currentPointY, currentPointZ};
 				return returnVals;
-			}
-			}
-			catch(Exception e){
-				return new Integer[3];
 			}
 		}
 
@@ -284,18 +277,15 @@ public class CameraR extends PhysicalObjectR{
 			}
 			p1 += 2 * dy;
 			p2 += 2 * dx;
-					try{
 			if (env.getColor((int)Math.round(currentPointX), (int)Math.round(currentPointY), (int)Math.round(currentPointZ)) != null){
-				Integer[] returnVals = {currentPointX, currentPointY, currentPointZ};
+				int[] returnVals = {currentPointX, currentPointY, currentPointZ};
 				return returnVals;
 			}
-			}
-			catch(Exception e){
-				return new Integer[3];
-			}
 		}
 		}
-		return new Integer[3];
+
+		System.out.println("Logic Error");
+		return new int[]{0, 0, 0};
 		
 
 	}
