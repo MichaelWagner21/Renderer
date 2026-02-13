@@ -198,6 +198,7 @@ public class CameraR extends PhysicalObjectR{
 		int xs;
 		int ys;
 		int zs;
+		//Copied drawing line algorithm from internet.
 		if (x2 > currentPointX) {
 			xs = 1;
 		} 
