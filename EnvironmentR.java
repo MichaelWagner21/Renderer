@@ -152,8 +152,18 @@ public class EnvironmentR {
         
 
     }
-    public void drawPlane(Color c, int x1, int y1, int z1, int x2, int y2, int z2, int x3, int y3, int z3, int x4, int y4, int z4){
- 
+    public void drawHorizontalPlane(Color c1, Color c2, int x1, int x2, int y1, int zStart, int length){
+        int zEnd = zStart + length;
+        for (int x = x1; x<=x2; x++){
+            Color drawColor;
+            if (x%2 == 0){
+                drawColor = c1;
+            }
+            else{
+                drawColor = c2;
+            }
+            this.drawLine(drawColor, x, y1, zStart, x, y1, zEnd);
+        }
     }
     public void clear(){
         for (int x = 0; x < envColors.length; x++){
@@ -164,6 +174,18 @@ public class EnvironmentR {
             }
         }
     }
+
+    public boolean isOutsideRange(int x, int y, int z){
+        int xArrayPos = x+xMax;
+        int yArrayPos = y+yMax;
+        int zArrayPos = z+zMax;
+        if ((xArrayPos < envColors.length && (yArrayPos < envColors[0].length && zArrayPos < envColors[0][0].length))
+             && xArrayPos >= 0 && yArrayPos >= 0 && zArrayPos >= 0){
+            return false;
+        }
+        return true;
+    }
+
     
     
     

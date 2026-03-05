@@ -276,10 +276,14 @@ public class MainR {
         myEnv.drawLine(Color.WHITE, -5, -5, 15, -5, 5, 15);
         myEnv.drawLine(Color.WHITE, 5, -5, 25, 5, 5, 25);
         myEnv.drawLine(Color.WHITE, -5, -5, 25, -5, 5, 25);
+
+
+        myEnv.drawHorizontalPlane(Color.GRAY, Color.GRAY, -50, 50, -10, -50, 100);
+        // myEnv.drawLine(Color.WHITE, -50, -50, -50, 50, -50, 50);
         
         //System.out.print(myEnv);
 
-        //myEnv.drawTetrahedron(Color.LIGHT_GRAY, );
+        myEnv.drawTetrahedron(Color.LIGHT_GRAY, 0, 0, -10, -6, 0, -16, 4, 0, -20, 0, 6, -16);
 
 
         //Main Loop
@@ -335,7 +339,7 @@ public class MainR {
 
             
             activeCamera.updateProjection(myEnv);
-            thisPanel.render(activeCamera.projection, XBOUND, YBOUND);
+            thisPanel.render(activeCamera.projection, activeCamera, XBOUND, YBOUND);
         }
         // camera1.updateProjection(myEnv);
         // thisPanel.render(camera1.projection, XBOUND, YBOUND);
@@ -356,18 +360,6 @@ public class MainR {
           }
     }
 
-    /*public static void update(PanelR w){
-        SwingUtilities.updateComponentTreeUI(w);
-    }
-
-    public static int randNum(double min, double max){
-        return (int)Math.floor(Math.random() * (max - min + 1) + min);
-    }
-
-    public static double randNumDouble(double min, double max){
-        Random r = new Random();
-        return min + (max - min) * r.nextDouble();
-    }*/
 
 }
     

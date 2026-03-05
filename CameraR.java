@@ -18,6 +18,7 @@ public class CameraR extends PhysicalObjectR{
 	private double halfScreenHeight;
 
 
+
 	public CameraR(int screenWidthIn, int screenHeightIn){
 		this.x = 0;
 		this.y = 0;
@@ -89,11 +90,12 @@ public class CameraR extends PhysicalObjectR{
 					  "\n screenHeight: "+String.valueOf(this.screenHeight);
 	}
 
-	public void camUpdate(){
+	public void camUpdate(EnvironmentR env){
 		//TODO: This
+		this.update(env);
 	}
 	public void updateProjection(EnvironmentR env){
-
+		this.camUpdate(env);
 
 		for (int screenX = 0; screenX < this.screenWidth; screenX++){
 			for (int screenY = 0; screenY < this.screenHeight; screenY++){

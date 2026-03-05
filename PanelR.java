@@ -123,7 +123,7 @@ public class PanelR extends JPanel {
         this.drawLine(c, xMid - 5, yMid, xMid + 5, yMid);
     }
 
-    public void render(Color[][] projection, int width, int height){
+    public void render(Color[][] projection, CameraR currentCamera, int width, int height){
         for (int screenX = 0; screenX < width; screenX++){
             for (int screenY = 0; screenY < height; screenY++){
                 this.setPixel(screenX, screenY, projection[screenX][screenY]);
